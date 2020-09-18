@@ -5,7 +5,7 @@ You need to divide the array A into two subsets S1 and S2 such that the absolute
 Find and return this minimum possible absolute difference.
 
 
-lass Solution:
+class Solution:
     # @param A : list of integers
     # @return an integer
     def solve(self, A):
