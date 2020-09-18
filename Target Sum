@@ -1,0 +1,37 @@
+You are given a list of non-negative integers, a1, a2, ..., an, and a target, S. Now you have 2 symbols + and -. For each integer, you should choose one from + and - as its new symbol.
+
+Find out how many ways to assign symbols to make sum of integers equal to target S.
+
+This basically is reduced to count of ways such that subset s1 - subset s2 is equal to diff. where positve sign are of subset s1 and negative sign are from subset s2.
+
+      class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        s=(S+sum(nums))//2  #using the sount of subset having given diff
+        n=len(nums)
+        nz=0
+        total=sum(nums)
+        if S>total: # not possible to make
+            return 0
+        if (S+total)%2!=0: # this is check so the can be partitoned into 2 groups
+            return 0
+        for i in nums: # calculating the no of Zeroes in the given array(Testcase)
+            if i==0:
+                nz+=1
+        t=[[0 for j in range(s+1)]for i in range(n+1)] # creating 2 d matrix
+        for i in range(n+1):
+            for j in range(s+1):
+                if i==0: # no of ele is zero and sum is varied
+                    t[i][j]=0
+                if j==0: # sum=0 with elements
+                    t[i][j]=1
+                elif nums[i-1]==0:
+                    t[i][j]=t[i-1][j]
+                elif nums[i-1]<=j:
+                    t[i][j]=t[i-1][j-nums[i-1]] + t[i-1][j]
+                else:
+                    t[i][j]=t[i-1][j]
+#For example: If we have 2(cnt=2) zeroes in the example array for which we calculate count of subset with a sum then there are 4(2^cnt) ways 
+that is either selecting first zero, second selecting second 0 present in array, third not selecting both, fourth selecting both.
+        return int((math.pow(2,nz))*t[n][s]) 
+        
+                               
