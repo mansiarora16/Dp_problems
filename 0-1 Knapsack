@@ -1,0 +1,29 @@
+First argument is an integer array A of size N denoting the values on N items.
+
+Second argument is an integer array B of size N denoting the weights on N items.
+
+Third argument is an integer C denoting the knapsack capacity.
+
+A = [60, 100, 120]
+ B = [10, 20, 30]
+ C = 50
+ 
+ ans-220
+
+def solve(self, A, B, C):
+        n=len(A)# value array 
+    
+        t=[[-1 for col in range(C+1)] for row in range(n+1)] #create a matrix with capacity and value array
+        
+        
+            
+        for i in range(0,n+1):
+            for j in range(0,C+1):
+                if i==0 or j==0:
+                    t[i][j]=0
+                elif B[i-1]<=j: # comapre the weight with capacity ele
+                    t[i][j]=max(A[i-1]+t[i-1][j-B[i-1]],t[i-1][j]) # add the val and subtract the weight from it
+                else:
+                    t[i][j]=t[i-1][j]
+                    
+        return t[n][C]
