@@ -1,0 +1,40 @@
+Given two strings X and Y. The task is to find the length of the longest common substring.
+
+First line of the input contains number of test cases T. Each test case consist of three lines, 
+first of which contains 2 space separated integers N and M denoting the size of string X and Y strings respectively.
+The next two lines contains the string X and Y.
+
+Example:
+Input:
+2
+6 6
+ABCDGH
+ACDGHR
+3 2
+ABC
+AC
+
+Output:
+4
+1
+
+for i in range(int(input())):
+    m,n=input().split(' ')
+    m=int(m)
+    n=int(n)
+    text1=input()
+    text2=input()
+    result=0
+    t=[[0 for col in range(n+1)] for row in range(m+1)] #create 2- matrix 
+    
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                t[i][j]=0
+            elif text1[i-1]==text2[j-1]:
+                t[i][j]=1+t[i-1][j-1]
+                result=max(result,t[i][j]) # this is done to find the longest substring
+            else:
+                t[i][j]=0
+    
+    print (result)
